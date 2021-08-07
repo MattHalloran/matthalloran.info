@@ -1,2 +1,3 @@
-cd ${PROJECT_DIR}/packages/ui && PORT=${VIRTUAL_PORT}
+cd ${PROJECT_DIR} && PORT=${VIRTUAL_PORT}
+yarn
 npm run start-${NODE_ENV}
