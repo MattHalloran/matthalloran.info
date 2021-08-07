@@ -5,12 +5,6 @@
   "type": "module",
   "private": true,
   "dependencies": {
-    "@emotion/react": "^11.4.0",
-    "@emotion/styled": "^11.3.0",
-    "@material-ui/core": "^4.12.3",
-    "@material-ui/icons": "^4.11.2",
-    "@material-ui/lab": "^4.0.0-alpha.60",
-    "@material-ui/styles": "^4.11.4",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -22,8 +16,9 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start-development": "react-scripts start",
+    "start-production": "npm run build && serve -s build -l 3000",
+    "build": "react-scripts build --max-old-space-size=8192 --optimize_for_size --max_executable_size=4096 --stack_size=4096",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
