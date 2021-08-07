@@ -3,11 +3,10 @@ EXPOSE 3000
 
 # Set variables
 ARG PROJECT_DIR
-ENV ui=.
 
 # Create directories with correct permissions
-RUN mkdir -p ${PROJECT_DIR}/${ui}/node_modules/.cache &&\
-    mkdir -p ${PROJECT_DIR}/${ui}/build &&\
+RUN mkdir -p ${PROJECT_DIR}/node_modules/.cache &&\
+    mkdir -p ${PROJECT_DIR}/build &&\
     chown -R node:node ${PROJECT_DIR}
 
 # Install global packages (must be done as the root user)
@@ -21,13 +20,12 @@ WORKDIR ${PROJECT_DIR}
 
 # Copy packages over first. This helps with caching
 COPY --chown=node:node package.json package.json
-COPY --chown=node:node ${ui}/package.json ${ui}/package.json
 
 # Install packages
-RUN yarn install
+RUN yarn
 
 # Copy rest of repo over
-COPY --chown=node:node ${ui}/src ${ui}/public ${ui}/
-COPY --chown=node:node start.sh .
+COPY --chown=node:node src public ./
+COPY --chown=node:node start.sh start.sh
 
 USER root
