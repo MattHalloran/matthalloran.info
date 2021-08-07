@@ -25,6 +25,8 @@ This template is designed for quickly creating your own link website. It include
 ### 4. Docker
 By default, the docker containers rely on an external network. This network is used for the server's nginx docker container. During development, there is no need to run an nginx container. Instead, you can enter: `docker network create nginx-proxy`
 
+## Open Graph Tags
+Open Graph is a metadata format that describes how your website should be shown when shared on social media. This data is set in the header, and can be edited at `public/index.html`. For more information, [here](https://developers.facebook.com/docs/sharing/webmasters/) is a guide from Facebook.
 
 ## Common commands
 - Start: `docker-compose up -d`

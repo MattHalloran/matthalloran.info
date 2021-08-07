@@ -31,7 +31,7 @@ function AddressModal({
                 <h4 id='modal-description'>1. Scan QR code or press address to copy</h4>
                 <h4 id='modal-description'>2. Send ADA to address with your wallet</h4>
                 <div class={`wallet-div ${copied ? 'copied' : ''}`} onClick={copyAddress}>{address}</div>
-                {copied ? '🎉Copied!🎉' : ''}
+                {copied ? <span class='copied-text'>🎉Copied!🎉</span> : ''}
             </div>
     );
 }
