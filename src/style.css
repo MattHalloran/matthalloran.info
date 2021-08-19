@@ -81,7 +81,8 @@ body {
     vertical-align:  middle;
     display: inline-block;
 }
-.social-icons ul li a {
+.social-icons ul li a,
+.social-icons ul li span {
     display: block;
     font-size: 1.4em;
     width: 40px;
@@ -91,10 +92,12 @@ body {
     text-decoration: none;
     transition: 0.3s ease-in-out;
 }
-.social-icons ul li a:hover {
+.social-icons ul li a:hover,
+.social-icons ul li span:hover {
     background:  #88cde8;
 }
-.social-icons ul li a img {
+.social-icons ul li a img,
+.social-icons ul li span img {
     width: 24px;
     height: 24px;
 }
