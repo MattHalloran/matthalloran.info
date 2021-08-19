@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import vrooli from '../../assets/vrooli-logo.png';
+import vrooli from '../../assets/Vrooli-logo.png';
 import email from '../../assets/email.svg';
 import discord from '../../assets/discord.svg';
 import github from '../../assets/github.svg';
