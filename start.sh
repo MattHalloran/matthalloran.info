@@ -1,3 +1,10 @@
-cd ${PROJECT_DIR} && PORT=${VIRTUAL_PORT}
-yarn
-npm run start-${NODE_ENV}
+#!/bin/sh
+
+# Production build extra steps
+if [ "${NODE_ENV}" = "production" ]; then
+    # Build project
+    yarn build
+fi
+
+# Start project
+yarn start-${NODE_ENV}
