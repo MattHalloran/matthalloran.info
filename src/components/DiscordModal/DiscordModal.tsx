@@ -31,7 +31,7 @@ export const DiscordModal = ({
                 <Typography variant="h5">1. Press name to copy</Typography>
                 <Typography variant="h5">2. Paste name in "Add Friends" page on Discord</Typography>
                 <Box onClick={copyName} sx={{...copyBoxStyle(copied)}}>{discordName}</Box>
-                {copied ? (<Box mb={1}>🎉Copied!🎉</Box>) : null}
+                {copied ? (<Box mb={1}>🎉 Copied! 🎉</Box>) : null}
             </Box>
     );
 }

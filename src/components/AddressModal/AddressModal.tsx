@@ -36,7 +36,7 @@ export const AddressModal = ({
                 <img
                     src={QRCode} alt="Donate ADA QR code"
                     style={{
-                        width: "100%",
+                        height: "250px",
                         border: "1px solid black",
                     }}
                 />
@@ -46,7 +46,7 @@ export const AddressModal = ({
             <Typography variant="h5">1. Scan QR code or press address to copy</Typography>
             <Typography variant="h5">2. Send ADA to address with your wallet</Typography>
             <Box onClick={copyAddress} sx={{ ...copyBoxStyle(copied) }}>{address}</Box>
-            {copied ? (<Box mb={1}>🎉Copied!🎉</Box>) : null}
+            {copied ? (<Box mb={1}>🎉 Copied! 🎉</Box>) : null}
         </Box>
     );
 }

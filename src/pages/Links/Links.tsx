@@ -61,56 +61,66 @@ export const Links = () => {
     }
 
     return (
-        <Box id='main-container' sx={{
-            background: "#072781",
-            maxWidth: "800px",
-            borderRadius: "10px",
-            boxShadow: "0 0 35px 0 rgba(0,0,0,0.5)",
-            textAlign: "center",
-            padding: "1em",
-            position: "absolute",
-            margin: "auto",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
+        <Box sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            minHeight: "100vh",
         }}>
-            <AddressModal open={addressModalOpen} onClose={() => setAddressModalOpen(false)} />
-            <DiscordModal open={discordModalOpen} onClose={() => setDiscordModalOpen(false)} />
+            <Box id='main-container' sx={{
+                background: "#072781",
+                maxWidth: "800px",
+                borderRadius: 2,
+                boxShadow: "0 0 35px 0 rgba(0,0,0,0.5)",
+                textAlign: "center",
+                padding: "1em",
+            }}>
+                <AddressModal open={addressModalOpen} onClose={() => setAddressModalOpen(false)} />
+                <DiscordModal open={discordModalOpen} onClose={() => setDiscordModalOpen(false)} />
 
-            <Box id='main-info'>
-                <Box sx={{ 
-                    ...noSelect, 
-                    display: 'contents' 
-                }}>
-                    <img 
-                        id="main-logo" 
-                        src={vrooli} 
-                        alt="Vrooli Logo" 
-                        style={{ 
-                            height: '100px',
-                            marginLeft: 'auto', 
-                            marginRight: 'auto', 
-                            display: 'block',
-                            marginBottom: '8px',
-                        }} 
-                    />
+                <Box id='main-info'>
+                    <Box sx={{
+                        ...noSelect,
+                        display: 'contents'
+                    }}>
+                        <img
+                            id="main-logo"
+                            src={vrooli}
+                            onClick={() => openLink("https://vrooli.com")}
+                            alt="Vrooli Logo"
+                            style={{
+                                height: '100px',
+                                marginLeft: 'auto',
+                                marginRight: 'auto',
+                                display: 'block',
+                                marginBottom: '8px',
+                                cursor: 'pointer',
+                            }}
+                        />
+                    </Box>
+                    <Typography variant="h3" component="h1" mb={1}>Matt Halloran</Typography>
+                    <Typography variant="body1">💻 Developer  🤔 Philosopher  💭 Dreamer</Typography>
+                    <Typography
+                        variant="body1"
+                        mb={2}
+                        color="#aaf1f9"
+                        onClick={() => openLink("https://matthalloran8.medium.com/the-next-generation-of-global-collaboration-a4839766e29e")}
+                        sx={{ cursor: 'pointer' }}
+                    >Let&#x27;s change the world together</Typography>
                 </Box>
-                <Typography variant="h3" component="h1" mb={1}>Matt Halloran</Typography>
-                <Typography variant="body1">💻 Developer  🤔 Philosopher  💭 Dreamer</Typography>
-                <Typography variant="body1" mb={2} color="#aaf1f9">Let&#x27;s change the world together</Typography>
+
+                <Stack direction="column" spacing={1} mb={2} sx={{ ...noSelect, alignItems: 'center' }}>
+                    <Button onClick={() => openLink("https://vrooli.com")} sx={{ ...buttonProps, marginBottom: 0 }}>Vrooli - Website</Button>
+                    <Button onClick={() => openLink("https://discord.gg/WTGNukDQ")} sx={{ ...buttonProps }}>Vrooli - Discord</Button>
+                    <Button onClick={() => openLink("https://cardano.ideascale.com/a/pmd/3070972-48088?")} sx={{ ...buttonProps }}>Project Catalyst Proposals</Button>
+                    <Button onClick={() => openLink("https://ko-fi.com/matthalloran")} sx={{ ...buttonProps }}>Donate - Paypal/Stripe</Button>
+                    <Button onClick={() => setAddressModalOpen(true)} sx={{ ...buttonProps }}>Donate - ADA</Button>
+                </Stack>
+
+                <Stack direction="row" spacing={1} sx={{ ...noSelect, justifyContent: 'space-evenly' }}>
+                    {iconNav}
+                </Stack>
             </Box>
-
-            <Stack direction="column" spacing={1} mb={2} sx={{ ...noSelect, alignItems: 'center' }}>
-                <Button onClick={() => openLink("https://vrooli.com")} sx={{...buttonProps, marginBottom: 0}}>Vrooli - Website</Button>
-                <Button onClick={() => openLink("https://discord.gg/WTGNukDQ")} sx={{...buttonProps}}>Vrooli - Discord</Button>
-                <Button onClick={() => openLink("https://cardano.ideascale.com/a/pmd/3070972-48088?")} sx={{...buttonProps}}>Project Catalyst Proposals</Button>
-                <Button onClick={() => openLink("https://ko-fi.com/matthalloran")} sx={{...buttonProps}}>Donate - Paypal/Stripe</Button>
-                <Button onClick={() => setAddressModalOpen(true)} sx={{...buttonProps}}>Donate - ADA</Button>
-            </Stack>
-
-            <Stack direction="row" spacing={1} sx={{ ...noSelect, justifyContent: 'space-evenly' }}>
-                {iconNav}
-            </Stack>
         </Box>
     );
 }

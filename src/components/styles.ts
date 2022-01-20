@@ -12,6 +12,7 @@ export const copyBoxStyle = (copied: boolean): SxProps => ({
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
     margin: 1,
+    cursor: 'pointer',
 }) as CSSProperties;
 
 export const modalStyle = (open: boolean): SxProps => ({
@@ -27,7 +28,6 @@ export const modalStyle = (open: boolean): SxProps => ({
     borderRadius: "10px",
     border: "1px solid white",
     width: "calc(min(400px, 90vw))",
-    maxHeight: "calc(min(700px, 90vh))",
     zIndex: "100",
-    margin: 1,
+    margin: 0,
 }) as CSSProperties;

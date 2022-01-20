@@ -19,7 +19,7 @@ USER node
 WORKDIR ${PROJECT_DIR}
 
 # Copy packages over first. This helps with caching
-COPY --chown=node:node package.json package.json
+COPY --chown=node:node package.json tsconfig.json ./
 
 # Install packages
 RUN yarn

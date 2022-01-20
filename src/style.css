@@ -1,12 +1,11 @@
 body {
     font-family: 'Poppins';
-    background: linear-gradient(-46deg, #d5aa75, #d264b5, #0f65d1, #69d7d2);
+    background: linear-gradient(-46deg, #d5aa75, #d264b5, #0f65d1, #69d7d2) center center / cover no-repeat fixed;
 	background-size: 400% 400%;
 	animation: gradient 10s ease infinite;
     color: white;
-    width: 100vw;
-    height: 100vh;
     overflow-x: hidden;
+    margin: 0;
 }
 
 @keyframes gradient {
