@@ -12,3 +12,19 @@ import { CSSProperties } from "@mui/styles";
     userSelect: 'none', /* Non-prefixed version, currently
     supported by Chrome, Edge, Opera and Firefox */
 } as CSSProperties;
+
+export const buttonProps: SxProps = {
+    height: "48px",
+    background: "white",
+    color: "black",
+    borderRadius: "10px",
+    width: "20em",
+    display: "flex",
+    marginBottom: "5px",
+    transition: "0.3s ease-in-out",
+    '&:hover': {
+        filter: `brightness(120%)`,
+        color: 'white',
+        border: '1px solid white',
+    }
+} as CSSProperties

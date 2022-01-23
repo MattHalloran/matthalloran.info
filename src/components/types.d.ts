@@ -5,4 +5,6 @@ export interface ModalProps {
 
 export interface AddressModalProps extends ModalProps {}
 
+export interface DonateModalProps extends ModalProps {}
+
 export interface DiscordModalProps extends ModalProps {}

@@ -1,19 +1,18 @@
 import { useCallback, useMemo, useState } from 'react';
 import { Button, Box, Stack, Tooltip, Typography } from '@mui/material';
-import { noSelect } from 'styles'
-import vrooli from '../../assets/Vrooli-logo.png';
-import email from '../../assets/email.svg';
-import discord from '../../assets/discord.svg';
-import github from '../../assets/github.svg';
-import goodreads from '../../assets/goodreads.svg';
-import linkedin from '../../assets/linkedin.svg';
-import twitter from '../../assets/twitter.svg';
-import youtube from '../../assets/youtube.svg';
-import { AddressModal } from '../../components/AddressModal/AddressModal';
-import { DiscordModal } from '../../components/DiscordModal/DiscordModal';
+import { buttonProps, noSelect } from 'styles'
+import vrooli from 'assets/Vrooli-logo.png';
+import email from 'assets/email.svg';
+import discord from 'assets/discord.svg';
+import github from 'assets/github.svg';
+import goodreads from 'assets/goodreads.svg';
+import linkedin from 'assets/linkedin.svg';
+import twitter from 'assets/twitter.svg';
+import youtube from 'assets/youtube.svg';
+import { DiscordModal, DonateModal } from 'components';
 
 export const Links = () => {
-    const [addressModalOpen, setAddressModalOpen] = useState(false);
+    const [donateModalOpen, setDonateModalOpen] = useState(false);
     const [discordModalOpen, setDiscordModalOpen] = useState(false);
 
     const openLink = useCallback((link: string) => { window.open(link, '_blank', 'noopener,noreferrer') }, []);
@@ -44,22 +43,6 @@ export const Links = () => {
         })
     }, [iconProps, iconNavData, openLink])
 
-    const buttonProps = {
-        height: "48px",
-        background: "white",
-        color: "black",
-        borderRadius: "10px",
-        width: "20em",
-        display: "block",
-        marginBottom: "5px",
-        transition: "0.3s ease-in-out",
-        '&:hover': {
-            filter: `brightness(120%)`,
-            color: 'white',
-            border: '1px solid white',
-        }
-    }
-
     return (
         <Box sx={{
             display: "flex",
@@ -75,7 +58,7 @@ export const Links = () => {
                 textAlign: "center",
                 padding: "1em",
             }}>
-                <AddressModal open={addressModalOpen} onClose={() => setAddressModalOpen(false)} />
+                <DonateModal open={donateModalOpen} onClose={() => setDonateModalOpen(false)} />
                 <DiscordModal open={discordModalOpen} onClose={() => setDiscordModalOpen(false)} />
 
                 <Box id='main-info'>
@@ -112,9 +95,9 @@ export const Links = () => {
                 <Stack direction="column" spacing={1} mb={2} sx={{ ...noSelect, alignItems: 'center' }}>
                     <Button onClick={() => openLink("https://vrooli.com")} sx={{ ...buttonProps, marginBottom: 0 }}>Vrooli - Website</Button>
                     <Button onClick={() => openLink("https://discord.gg/WTGNukDQ")} sx={{ ...buttonProps }}>Vrooli - Discord</Button>
+                    <Button onClick={() => openLink("https://docs.google.com/document/d/1zHYdjAyy01SSFZX0O-YnZicef7t6sr1leOFnynQQOx4/edit?usp=sharing")} sx={{ ...buttonProps }}>Vrooli - White Paper</Button>
                     <Button onClick={() => openLink("https://cardano.ideascale.com/a/pmd/3070972-48088?")} sx={{ ...buttonProps }}>Project Catalyst Proposals</Button>
-                    <Button onClick={() => openLink("https://ko-fi.com/matthalloran")} sx={{ ...buttonProps }}>Donate - Paypal/Stripe</Button>
-                    <Button onClick={() => setAddressModalOpen(true)} sx={{ ...buttonProps }}>Donate - ADA</Button>
+                    <Button onClick={() => setDonateModalOpen(true)} sx={{ ...buttonProps }}>Donate</Button>
                 </Stack>
 
                 <Stack direction="row" spacing={1} sx={{ ...noSelect, justifyContent: 'space-evenly' }}>
