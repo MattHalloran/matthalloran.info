@@ -1,0 +1,44 @@
+---
+version: "2.0"
+
+services:
+  web:
+    image: matthalloran8/matthalloraninfo_ui:latest
+    expose:
+      - port: 3000
+        as: 80
+        accept:
+          - www.matthalloran.info
+        to:
+          - global: true
+    environment: 
+      NODE_ENV: "production"
+      PROJECT_DIR: "/srv/app"
+
+profiles:
+  compute:
+    web:
+      resources:
+        cpu:
+          units: 0.5
+        memory:
+          size: 512Mi
+        storage:
+          size: 512Mi
+  placement:
+    dcloud:
+      attributes:
+        host: akash
+      signedBy:
+        anyOf:
+          - "akash1365yvmc4s7awdyj3n2sav7xfx76adc6dnmlx63"
+      pricing:
+        web:
+          denom: uakt
+          amount: 100
+
+deployment:
+  web:
+    dcloud:
+      profile: web
+      count: 1
