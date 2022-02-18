@@ -94,7 +94,7 @@ export const Links = () => {
 
                 <Stack direction="column" spacing={1} mb={2} sx={{ ...noSelect, alignItems: 'center' }}>
                     <Button onClick={() => openLink("https://vrooli.com")} sx={{ ...buttonProps, marginBottom: 0 }}>Vrooli - Website</Button>
-                    <Button onClick={() => openLink("https://discord.gg/WTGNukDQ")} sx={{ ...buttonProps }}>Vrooli - Discord</Button>
+                    <Button onClick={() => openLink("https://discord.gg/VyrDFzbmmF")} sx={{ ...buttonProps }}>Vrooli - Discord</Button>
                     <Button onClick={() => openLink("https://docs.google.com/document/d/1zHYdjAyy01SSFZX0O-YnZicef7t6sr1leOFnynQQOx4/edit?usp=sharing")} sx={{ ...buttonProps }}>Vrooli - White Paper</Button>
                     <Button onClick={() => openLink("https://cardano.ideascale.com/a/pmd/3070972-48088?")} sx={{ ...buttonProps }}>Project Catalyst Proposals</Button>
                     <Button onClick={() => setDonateModalOpen(true)} sx={{ ...buttonProps }}>Donate</Button>
