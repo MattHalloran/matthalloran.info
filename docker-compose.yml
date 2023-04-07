@@ -21,7 +21,7 @@ services:
       - app
     volumes:
       - .:${PROJECT_DIR}:z
-    command: /bin/sh -c "chmod +x ./start.sh && ./start.sh"
+    command: /bin/sh -c "chmod +x ./scripts/start.sh && ./scripts/start.sh"
 networks:
   proxy:
     name: nginx-proxy

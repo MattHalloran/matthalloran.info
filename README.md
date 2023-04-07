@@ -56,5 +56,5 @@ I've created a project that automates this process, which you can find [here](ht
 2. `git clone ${PROJECT_URL}`
 3. `cd ${PROJECT_NAME}`
 4. Edit .env variables
-5. `chmod +x ./start.sh`
+5. `chmod +x ./scripts/start.sh`
 7. `docker-compose up -d`

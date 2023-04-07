@@ -8,7 +8,7 @@ WORKDIR ${PROJECT_DIR}
 
 # Copy required files
 COPY --chown=node:node package.json yarn.lock ./
-COPY --chown=node:node start.sh ./
+COPY --chown=node:node scripts/start.sh ./scripts/
 
 # Assign working directory to node
 RUN chown -R node:node .
