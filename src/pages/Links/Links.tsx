@@ -61,7 +61,7 @@ export const Links = () => {
     const [discordDialogOpen, setDiscordDialogOpen] = useState(false);
 
     // 2D array of [image, alt/tooltip, link?, onClick?]
-    const iconNavData = [
+    const iconNavData: [any, string, string | null, (() => any) | null][] = [
         [twitter, "Follow me on Twitter", "https://twitter.com/mdhalloran", null],
         [discord, "Add me on Discord", null, () => setDiscordDialogOpen(true)],
         [github, "Check out my GitHub", "https://github.com/MattHalloran", null],
@@ -78,9 +78,9 @@ export const Links = () => {
             return (
                 <Tooltip key={`nav-item-${index}`} title={alt}>
                     <Box
-                        component={link ? 'a' : 'div'}
-                        href={link}
-                        onClick={() => onClick ? onClick() : window.open(link, '_blank', 'noopener,noreferrer')}
+                        component={typeof link === 'string' ? 'a' : 'div'}
+                        href={typeof link === 'string' ? link : undefined}
+                        onClick={() => onClick ? onClick() : window.open(link ?? '', '_blank', 'noopener,noreferrer')}
                         sx={{
                             cursor: 'pointer',
                         }}
