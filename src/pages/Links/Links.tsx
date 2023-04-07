@@ -1,15 +1,14 @@
-import { useCallback, useMemo, useState } from 'react';
-import { Button, Box, Stack, Tooltip, Typography } from '@mui/material';
-import { buttonProps, noSelect } from 'styles'
+import { Box, Button, Stack, Tooltip, Typography } from '@mui/material';
 import vrooli from 'assets/Vrooli-logo.png';
-import email from 'assets/email.svg';
 import discord from 'assets/discord.svg';
+import email from 'assets/email.svg';
 import github from 'assets/github.svg';
 import goodreads from 'assets/goodreads.svg';
-import linkedin from 'assets/linkedin.svg';
 import twitter from 'assets/twitter.svg';
 import youtube from 'assets/youtube.svg';
 import { DiscordModal, DonateModal } from 'components';
+import { useCallback, useMemo, useState } from 'react';
+import { buttonProps, noSelect } from 'styles';
 
 export const Links = () => {
     const [donateModalOpen, setDonateModalOpen] = useState(false);
@@ -22,10 +21,9 @@ export const Links = () => {
         [twitter, "Follow me on Twitter", "https://twitter.com/mdhalloran", null],
         [discord, "Add me on Discord", null, () => setDiscordModalOpen(true)],
         [github, "Check out my GitHub", "https://github.com/MattHalloran", null],
-        [linkedin, "Connect with me on LinkedIn", "https://linkedin.com/in/matthew-halloran/", null],
         [email, "Shoot me an email", "mailto:matthalloran8@gmail.com", null],
         [goodreads, "See what books inspired me", "https://goodreads.com/matthalloran", null],
-        [youtube, "Subscribe to the Vrooli YouTube account", "https://youtube.com/channel/UC4qvcwbFxx06vBD3wKjXscg", null],
+        [youtube, "Subscribe to the Vrooli YouTube account", "https://youtube.com/@vrooli", null],
     ]
     const iconProps = {
         width: '24px',
@@ -96,7 +94,6 @@ export const Links = () => {
                     <Button onClick={() => openLink("https://vrooli.com")} sx={{ ...buttonProps, marginBottom: 0 }}>Vrooli - Website</Button>
                     <Button onClick={() => openLink("https://discord.gg/VyrDFzbmmF")} sx={{ ...buttonProps }}>Vrooli - Discord</Button>
                     <Button onClick={() => openLink("https://docs.google.com/document/d/1zHYdjAyy01SSFZX0O-YnZicef7t6sr1leOFnynQQOx4/edit?usp=sharing")} sx={{ ...buttonProps }}>Vrooli - White Paper</Button>
-                    <Button onClick={() => openLink("https://cardano.ideascale.com/a/pmd/3070972-48088?")} sx={{ ...buttonProps }}>Project Catalyst Proposals</Button>
                     <Button onClick={() => setDonateModalOpen(true)} sx={{ ...buttonProps }}>Donate</Button>
                 </Stack>
 
