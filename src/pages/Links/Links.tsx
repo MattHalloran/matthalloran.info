@@ -8,8 +8,8 @@ import github from 'assets/github.svg';
 import goodreads from 'assets/goodreads.svg';
 import twitter from 'assets/twitter.svg';
 import youtube from 'assets/youtube.svg';
-import { DiscordModal, DonateModal } from 'components';
-import { useCallback, useMemo, useState } from 'react';
+import { DiscordDialog, DonateDialog } from 'components';
+import { useMemo, useState } from 'react';
 import Particles from 'react-tsparticles';
 import { buttonProps, noSelect } from 'styles';
 
@@ -52,16 +52,18 @@ const blob2Animation = keyframes`
     }
 `;
 
-export const Links = () => {
-    const [donateModalOpen, setDonateModalOpen] = useState(false);
-    const [discordModalOpen, setDiscordModalOpen] = useState(false);
+const VrooliLink = "https://vrooli.com";
+const DiscordLink = "https://discord.gg/VyrDFzbmmF";
+const WhitePaperLink = "https://docs.google.com/document/d/13Nag4UFxfuz-rVofhNEtqhZ63wOklzPjpbanGv_Po0Y/edit?usp=sharing";
 
-    const openLink = useCallback((link: string) => { window.open(link, '_blank', 'noopener,noreferrer') }, []);
+export const Links = () => {
+    const [donateDialogOpen, setDonateDialogOpen] = useState(false);
+    const [discordDialogOpen, setDiscordDialogOpen] = useState(false);
 
     // 2D array of [image, alt/tooltip, link?, onClick?]
     const iconNavData = [
         [twitter, "Follow me on Twitter", "https://twitter.com/mdhalloran", null],
-        [discord, "Add me on Discord", null, () => setDiscordModalOpen(true)],
+        [discord, "Add me on Discord", null, () => setDiscordDialogOpen(true)],
         [github, "Check out my GitHub", "https://github.com/MattHalloran", null],
         [email, "Shoot me an email", "mailto:matthalloran8@gmail.com", null],
         [goodreads, "See what books inspired me", "https://goodreads.com/matthalloran", null],
@@ -75,29 +77,31 @@ export const Links = () => {
         return iconNavData.map(([img, alt, link, onClick], index) => {
             return (
                 <Tooltip key={`nav-item-${index}`} title={alt}>
-                    <Box onClick={() => onClick ? onClick() : openLink(link)}>
+                    <Box
+                        component={link ? 'a' : 'div'}
+                        href={link}
+                        onClick={() => onClick ? onClick() : window.open(link, '_blank', 'noopener,noreferrer')}
+                        sx={{
+                            cursor: 'pointer',
+                        }}
+                    >
                         <img src={img} alt={alt} {...iconProps} />
                     </Box>
                 </Tooltip>
             )
         })
-    }, [iconProps, iconNavData, openLink])
+    }, [iconProps, iconNavData])
 
     return (
         <>
             {/* Constellation */}
             <Particles
                 id="tsparticles"
-                canvasClassName="tsparticles-canvas"
                 options={{
                     fullScreen: { enable: true, zIndex: 0 },
                     fpsLimit: 60,
                     interactivity: {
                         events: {
-                            onClick: {
-                                enable: true,
-                                mode: "push",
-                            },
                             onHover: {
                                 enable: true,
                                 mode: "repulse",
@@ -223,18 +227,23 @@ export const Links = () => {
                     textAlign: "center",
                     padding: "1em",
                 }}>
-                    <DonateModal open={donateModalOpen} onClose={() => setDonateModalOpen(false)} />
-                    <DiscordModal open={discordModalOpen} onClose={() => setDiscordModalOpen(false)} />
+                    <DonateDialog open={donateDialogOpen} onClose={() => setDonateDialogOpen(false)} />
+                    <DiscordDialog open={discordDialogOpen} onClose={() => setDiscordDialogOpen(false)} />
 
                     <Box id='main-info'>
-                        <Box sx={{
-                            ...noSelect,
-                            display: 'contents'
-                        }}>
+                        <Box
+                            component='a'
+                            href={VrooliLink}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            sx={{
+                                ...noSelect,
+                                display: 'contents'
+                            }}
+                        >
                             <img
                                 id="main-logo"
                                 src={vrooli}
-                                onClick={() => openLink("https://vrooli.com")}
                                 alt="Vrooli Logo"
                                 style={{
                                     height: '100px',
@@ -250,25 +259,27 @@ export const Links = () => {
                         <Typography variant="body1">💻 Developer  🤔 Philosopher  💭 Dreamer</Typography>
                         <Typography
                             variant="body1"
-                            mb={2}
                             color="#aaf1f9"
-                            onClick={() => openLink("https://matthalloran8.medium.com/the-next-generation-of-global-collaboration-a4839766e29e")}
+                            component="a"
+                            href="https://matthalloran8.medium.com/the-next-generation-of-global-collaboration-a4839766e29e"
+                            target="_blank"
+                            rel="noopener noreferrer"
                             sx={{ cursor: 'pointer' }}
                         >Let&#x27;s change the world together</Typography>
                     </Box>
 
-                    <Stack direction="column" spacing={1} mb={2} sx={{ ...noSelect, alignItems: 'center' }}>
-                        <Button onClick={() => openLink("https://vrooli.com")} sx={{ ...buttonProps, marginBottom: 0 }}>Vrooli - Website</Button>
-                        <Button onClick={() => openLink("https://discord.gg/VyrDFzbmmF")} sx={{ ...buttonProps }}>Vrooli - Discord</Button>
-                        <Button onClick={() => openLink("https://docs.google.com/document/d/1zHYdjAyy01SSFZX0O-YnZicef7t6sr1leOFnynQQOx4/edit?usp=sharing")} sx={{ ...buttonProps }}>Vrooli - White Paper</Button>
-                        <Button onClick={() => setDonateModalOpen(true)} sx={{ ...buttonProps }}>Donate</Button>
+                    <Stack direction="column" spacing={1} mb={2} mt={2} sx={{ ...noSelect, alignItems: 'center' }}>
+                        <Button component="a" href={VrooliLink} target="_blank" rel="noopener noreferrer" sx={{ ...buttonProps, marginBottom: 0 }}>Vrooli - Website</Button>
+                        <Button component="a" href={DiscordLink} target="_blank" rel="noopener noreferrer" sx={{ ...buttonProps }}>Vrooli - Discord</Button>
+                        <Button component="a" href={WhitePaperLink} target="_blank" rel="noopener noreferrer" sx={{ ...buttonProps }}>Vrooli - White Paper</Button>
+                        <Button onClick={() => setDonateDialogOpen(true)} sx={{ ...buttonProps }}>Donate</Button>
                     </Stack>
 
                     <Stack direction="row" spacing={1} sx={{ ...noSelect, justifyContent: 'space-evenly' }}>
                         {iconNav}
                     </Stack>
                 </Box>
-            </Box>
+            </Box >
         </>
     );
 }

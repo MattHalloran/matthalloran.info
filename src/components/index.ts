@@ -1,2 +1,2 @@
-export * from './DiscordModal/DiscordModal';
-export * from './DonateModal/DonateModal';
+export * from './DiscordDialog/DiscordDialog';
+export * from './DonateDialog/DonateDialog';
