@@ -6,7 +6,7 @@ services:
             dockerfile: ./Dockerfile
             args:
                 PROJECT_DIR: "${PROJECT_DIR}"
-        container_name: ui
+        container_name: ui_matt
         environment: 
             NODE_ENV: "${NODE_ENV}"
             PROJECT_DIR: "${PROJECT_DIR}"
