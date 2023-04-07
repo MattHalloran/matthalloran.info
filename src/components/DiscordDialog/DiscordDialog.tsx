@@ -38,8 +38,8 @@ export const DiscordDialog = ({
         >
             <Stack direction="column" spacing={1} m={2} sx={{ ...noSelect, alignItems: 'center', textAlign: 'center' }}>
                 <Typography id='modal-title' variant="h4" component="h2">Add me on Discord!</Typography>
-                <Typography variant="h6">1. Press name to copy</Typography>
-                <Typography variant="h6">2. Paste name in "Add Friends" page on Discord</Typography>
+                <Typography variant="body1">1. Press name to copy</Typography>
+                <Typography variant="body1" mb={2}>2. Paste name in "Add Friends" page on Discord</Typography>
                 <Button
                     onClick={copyName}
                     startIcon={<CopyIcon />}

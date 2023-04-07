@@ -80,7 +80,9 @@ export const Links = () => {
                     <Box
                         component={typeof link === 'string' ? 'a' : 'div'}
                         href={typeof link === 'string' ? link : undefined}
-                        onClick={() => onClick ? onClick() : window.open(link ?? '', '_blank', 'noopener,noreferrer')}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() => onClick && onClick()}
                         sx={{
                             cursor: 'pointer',
                         }}
@@ -264,7 +266,10 @@ export const Links = () => {
                             href="https://matthalloran8.medium.com/the-next-generation-of-global-collaboration-a4839766e29e"
                             target="_blank"
                             rel="noopener noreferrer"
-                            sx={{ cursor: 'pointer' }}
+                            sx={{
+                                cursor: 'pointer',
+                                textDecoration: 'none',
+                            }}
                         >Let&#x27;s change the world together</Typography>
                     </Box>
 

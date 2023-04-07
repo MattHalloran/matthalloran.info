@@ -21,7 +21,7 @@
     "scripts": {
         "build": "tsc && vite build",
         "start-development": "vite",
-        "start-production": "serve --config serve.json"
+        "start-production": "serve --config serve.json -l 3003"
     },
     "eslintConfig": {
         "extends": [
