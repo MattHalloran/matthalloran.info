@@ -1,0 +1,7 @@
+{
+    "recommendations": [
+        "dbaeumer.vscode-eslint",
+        "github.copilot",
+        "redhat.vscode-yaml"
+    ]
+}
