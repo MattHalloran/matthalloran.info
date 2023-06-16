@@ -59,23 +59,28 @@ check_var() {
 }
 check_var SITE_IP
 
+# Extract the current version number from the package.json file
+CURRENT_VERSION=$(cat ${HERE}/../package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[",]//g' | tr -d '[[:space:]]')
 # Ask for version number, if not supplied in arguments
-AUTO_DETECT_VERSION=false
+SHOULD_UPDATE_VERSION=false
 if [ -z "$VERSION" ]; then
-    prompt "What version number do you want to deploy? (e.g. 1.0.0). Leave blank if keeping the same version number."
+    prompt "What version number do you want to deploy? (current is ${CURRENT_VERSION}). Leave blank if keeping the same version number."
     warning "WARNING: Keeping the same version number will overwrite the previous build."
-    read -r VERSION
-    # If no version number was entered, use the version number found in the package.json files
-    if [ -z "$VERSION" ]; then
-        info "No version number entered. Using version number found in package.json files."
-        VERSION=$(cat ${HERE}/../package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[",]//g' | tr -d '[[:space:]]')
-        info "Version number found in package.json files: ${VERSION}"
-        AUTO_DETECT_VERSION=true
+    read -r ENTERED_VERSION
+    # If version entered, set version
+    if [ ! -z "$ENTERED_VERSION" ]; then
+        VERSION=$ENTERED_VERSION
+        SHOULD_UPDATE_VERSION=true
+    else
+        info "Keeping the same version number."
+        VERSION=$CURRENT_VERSION
     fi
+else
+    SHOULD_UPDATE_VERSION=true
 fi
 
 # Update package.json files for every package, if version number was not auto-detected
-if [ "${AUTO_DETECT_VERSION}" = false ]; then
+if [ "${SHOULD_UPDATE_VERSION}" = false ]; then
     cd ${HERE}/..
     # Find every directory containing a package.json file, up to 3 levels deep
     for dir in $(find . -maxdepth 1 -name package.json -printf '%h '); do
