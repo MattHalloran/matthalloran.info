@@ -1,15 +1,15 @@
-import { ContentCopy as CopyIcon } from '@mui/icons-material';
-import { Button, Stack, Typography } from '@mui/material';
-import { LargeDialog } from 'components/LargeDialog/LargeDialog';
-import { useCallback, useState } from 'react';
-import { buttonProps, noSelect } from 'styles';
-import { DiscordDialogProps } from '../types';
+import { ContentCopy as CopyIcon } from "@mui/icons-material";
+import { Button, Stack, Typography } from "@mui/material";
+import { LargeDialog } from "components/LargeDialog/LargeDialog";
+import { useCallback, useState } from "react";
+import { buttonProps, noSelect } from "styles";
+import { DiscordDialogProps } from "../types";
 
-const discordName = 'MattHalloran#7583';
+const discordName = "MattHalloran#7583";
 
 export const DiscordDialog = ({
     open,
-    onClose
+    onClose,
 }: DiscordDialogProps) => {
     const [copied, setCopied] = useState(false);
 
@@ -33,10 +33,10 @@ export const DiscordDialog = ({
                 paper: {
                     background: copied ? "#1c7602" : "#1e3558",
                     transition: "background 0.2s ease-in-out",
-                }
+                },
             }}
         >
-            <Stack direction="column" spacing={1} m={2} sx={{ ...noSelect, alignItems: 'center', textAlign: 'center' }}>
+            <Stack direction="column" spacing={1} m={2} sx={{ ...noSelect, alignItems: "center", textAlign: "center" }}>
                 <Typography id='modal-title' variant="h4" component="h2">Add me on Discord!</Typography>
                 <Typography variant="body1">1. Press name to copy</Typography>
                 <Typography variant="body1" mb={2}>2. Paste name in "Add Friends" page on Discord</Typography>
@@ -49,4 +49,4 @@ export const DiscordDialog = ({
             {copied ? <Typography variant="h6" component="h4" textAlign="center" mb={1}>🎉 Copied! 🎉</Typography> : null}
         </LargeDialog>
     );
-}
+};
