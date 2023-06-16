@@ -3,9 +3,9 @@ export interface ModalProps {
     onClose: () => void;
 }
 
-export interface DonateDialogProps extends ModalProps { }
+export type DonateDialogProps = ModalProps
 
-export interface DiscordDialogProps extends ModalProps { }
+export type DiscordDialogProps = ModalProps
 
 export interface LargeDialogProps {
     children: JSX.Element | null | undefined | (JSX.Element | null | undefined)[];
@@ -15,4 +15,4 @@ export interface LargeDialogProps {
     sxs?: {
         paper?: { [x: string]: any };
     }
-};
+}

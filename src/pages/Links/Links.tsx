@@ -1,17 +1,19 @@
-import { Box, Button, Stack, Tooltip, Typography, keyframes } from '@mui/material';
-import vrooli from 'assets/Vrooli-logo.png';
-import Blob1 from 'assets/blob1.svg';
-import Blob2 from 'assets/blob2.svg';
-import discord from 'assets/discord.svg';
-import email from 'assets/email.svg';
-import github from 'assets/github.svg';
-import goodreads from 'assets/goodreads.svg';
-import twitter from 'assets/twitter.svg';
-import youtube from 'assets/youtube.svg';
-import { DiscordDialog, DonateDialog } from 'components';
-import { useMemo, useState } from 'react';
-import Particles from 'react-tsparticles';
-import { buttonProps, noSelect } from 'styles';
+import { Box, Button, Stack, Tooltip, Typography, keyframes } from "@mui/material";
+import vrooli from "assets/Vrooli-logo.png";
+import Blob1 from "assets/blob1.svg";
+import Blob2 from "assets/blob2.svg";
+import discord from "assets/discord.svg";
+import email from "assets/email.svg";
+import github from "assets/github.svg";
+import goodreads from "assets/goodreads.svg";
+import twitter from "assets/twitter.svg";
+import youtube from "assets/youtube.svg";
+import { DiscordDialog, DonateDialog } from "components";
+import { useCallback, useMemo, useState } from "react";
+import Particles from "react-tsparticles";
+import { buttonProps, noSelect } from "styles";
+import { loadFull } from "tsparticles";
+import type { Container, Engine } from "tsparticles-engine";
 
 // Animation for blob1
 // Moves up and grows, then moves down to the right and shrinks.
@@ -57,6 +59,15 @@ const DiscordLink = "https://discord.gg/VyrDFzbmmF";
 const WhitePaperLink = "https://docs.google.com/document/d/13Nag4UFxfuz-rVofhNEtqhZ63wOklzPjpbanGv_Po0Y/edit?usp=sharing";
 
 export const Links = () => {
+    const particlesInit = useCallback(async (engine: Engine) => {
+        await loadFull(engine);
+    }, []);
+
+    const particlesLoaded = useCallback((container: Container | undefined) => {
+        console.log(container);
+        return Promise.resolve();
+    }, []);
+
     const [donateDialogOpen, setDonateDialogOpen] = useState(false);
     const [discordDialogOpen, setDiscordDialogOpen] = useState(false);
 
@@ -68,37 +79,39 @@ export const Links = () => {
         [email, "Shoot me an email", "mailto:matthalloran8@gmail.com", null],
         [goodreads, "See what books inspired me", "https://goodreads.com/matthalloran", null],
         [youtube, "Subscribe to the Vrooli YouTube account", "https://youtube.com/@vrooli", null],
-    ]
+    ];
     const iconProps = {
-        width: '24px',
-        height: '24px',
-    }
+        width: "24px",
+        height: "24px",
+    };
     const iconNav = useMemo(() => {
         return iconNavData.map(([img, alt, link, onClick], index) => {
             return (
                 <Tooltip key={`nav-item-${index}`} title={alt}>
                     <Box
-                        component={typeof link === 'string' ? 'a' : 'div'}
-                        href={typeof link === 'string' ? link : undefined}
+                        component={typeof link === "string" ? "a" : "div"}
+                        href={typeof link === "string" ? link : undefined}
                         target="_blank"
                         rel="noopener noreferrer"
                         onClick={() => onClick && onClick()}
                         sx={{
-                            cursor: 'pointer',
+                            cursor: "pointer",
                         }}
                     >
                         <img src={img} alt={alt} {...iconProps} />
                     </Box>
                 </Tooltip>
-            )
-        })
-    }, [iconProps, iconNavData])
+            );
+        });
+    }, [iconProps, iconNavData]);
 
     return (
         <>
             {/* Constellation */}
             <Particles
                 id="tsparticles"
+                init={particlesInit}
+                loaded={particlesLoaded}
                 options={{
                     fullScreen: { enable: true, zIndex: 0 },
                     fpsLimit: 60,
@@ -171,46 +184,46 @@ export const Links = () => {
             />
             {/* Blob 1 */}
             <Box sx={{
-                position: 'fixed',
-                pointerEvents: 'none',
+                position: "fixed",
+                pointerEvents: "none",
                 bottom: -300,
                 left: -175,
-                width: '100%',
-                height: '100%',
+                width: "100%",
+                height: "100%",
                 zIndex: 2,
                 opacity: 0.5,
-                transition: 'opacity 1s ease-in-out',
+                transition: "opacity 1s ease-in-out",
             }}>
                 <Box
                     component="img"
                     src={Blob1}
                     alt="Blob 1"
                     sx={{
-                        width: '100%',
-                        height: '100%',
+                        width: "100%",
+                        height: "100%",
                         animation: `${blob1Animation} 20s linear infinite`,
                     }}
                 />
             </Box>
             {/* Blob 2 */}
             <Box sx={{
-                position: 'fixed',
-                pointerEvents: 'none',
+                position: "fixed",
+                pointerEvents: "none",
                 top: -154,
                 right: -175,
-                width: '100%',
-                height: '100%',
+                width: "100%",
+                height: "100%",
                 zIndex: 2,
                 opacity: 0.5,
-                transition: 'opacity 1s ease-in-out',
+                transition: "opacity 1s ease-in-out",
             }}>
                 <Box
                     component="img"
                     src={Blob2}
                     alt="Blob 2"
                     sx={{
-                        width: '100%',
-                        height: '100%',
+                        width: "100%",
+                        height: "100%",
                         animation: `${blob2Animation} 20s linear infinite`,
                     }}
                 />
@@ -222,8 +235,8 @@ export const Links = () => {
                 minHeight: "100vh",
             }}>
                 <Box id='main-container' sx={{
-                    backgroundColor: 'rgba(106,122,161,0.4)',
-                    backdropFilter: 'blur(24px)',
+                    backgroundColor: "rgba(106,122,161,0.4)",
+                    backdropFilter: "blur(24px)",
                     maxWidth: "800px",
                     borderRadius: 2,
                     textAlign: "center",
@@ -240,7 +253,7 @@ export const Links = () => {
                             rel="noopener noreferrer"
                             sx={{
                                 ...noSelect,
-                                display: 'contents'
+                                display: "contents",
                             }}
                         >
                             <img
@@ -248,12 +261,12 @@ export const Links = () => {
                                 src={vrooli}
                                 alt="Vrooli Logo"
                                 style={{
-                                    height: '100px',
-                                    marginLeft: 'auto',
-                                    marginRight: 'auto',
-                                    display: 'block',
-                                    marginBottom: '8px',
-                                    cursor: 'pointer',
+                                    height: "100px",
+                                    marginLeft: "auto",
+                                    marginRight: "auto",
+                                    display: "block",
+                                    marginBottom: "8px",
+                                    cursor: "pointer",
                                 }}
                             />
                         </Box>
@@ -267,24 +280,24 @@ export const Links = () => {
                             target="_blank"
                             rel="noopener noreferrer"
                             sx={{
-                                cursor: 'pointer',
-                                textDecoration: 'none',
+                                cursor: "pointer",
+                                textDecoration: "none",
                             }}
                         >Let&#x27;s change the world together</Typography>
                     </Box>
 
-                    <Stack direction="column" spacing={1} mb={2} mt={2} sx={{ ...noSelect, alignItems: 'center' }}>
+                    <Stack direction="column" spacing={1} mb={2} mt={2} sx={{ ...noSelect, alignItems: "center" }}>
                         <Button component="a" href={VrooliLink} target="_blank" rel="noopener noreferrer" sx={{ ...buttonProps, marginBottom: 0 }}>Vrooli - Website</Button>
                         <Button component="a" href={DiscordLink} target="_blank" rel="noopener noreferrer" sx={{ ...buttonProps }}>Vrooli - Discord</Button>
                         <Button component="a" href={WhitePaperLink} target="_blank" rel="noopener noreferrer" sx={{ ...buttonProps }}>Vrooli - White Paper</Button>
                         <Button onClick={() => setDonateDialogOpen(true)} sx={{ ...buttonProps }}>Donate</Button>
                     </Stack>
 
-                    <Stack direction="row" spacing={1} sx={{ ...noSelect, justifyContent: 'space-evenly' }}>
+                    <Stack direction="row" spacing={1} sx={{ ...noSelect, justifyContent: "space-evenly" }}>
                         {iconNav}
                     </Stack>
                 </Box>
             </Box >
         </>
     );
-}
+};

@@ -1,10 +1,10 @@
-import { PageProps } from 'pages/types';
-import { useEffect } from 'react';
+import { PageProps } from "pages/types";
+import { useEffect } from "react";
 
 export const Page = ({
     title,
-    children
+    children,
 }: PageProps) => {
-    useEffect(() => { document.title = title }, [title]);
+    useEffect(() => { document.title = title; }, [title]);
     return children;
 };
