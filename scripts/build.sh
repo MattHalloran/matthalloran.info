@@ -145,7 +145,7 @@ if [[ "$DEPLOY_VPS" =~ ^[Yy]([Ee][Ss])?$ ]]; then
     read -n1 -r -s
     # Ensure that target directory exists
     ssh -i ~/.ssh/id_rsa_${SITE_IP} root@${SITE_IP} "mkdir -p ${BUILD_DIR}"
-    # Copy everything except environment file
+    # Copy everything except ENV_FILE
     rsync -ri --info=progress2 -e "ssh -i ~/.ssh/id_rsa_${SITE_IP}" build.tar.gz production-docker-images.tar.gz root@${SITE_IP}:${BUILD_DIR}
     # ENV_FILE must be copied as .env-prod since that's what deploy.sh expects
     rsync -ri --info=progress2 -e "ssh -i ~/.ssh/id_rsa_${SITE_IP}" ${ENV_FILE} root@${SITE_IP}:${BUILD_DIR}/.env-prod
