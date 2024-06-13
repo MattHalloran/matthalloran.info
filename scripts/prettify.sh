@@ -1,6 +1,8 @@
 #!/bin/bash
 # These functions help to prettify echos
 
+export TERM=${TERM:-xterm}
+
 # Determine if tput is available
 if [ -n "$(command -v tput)" ]; then
     # Set colors
@@ -53,4 +55,16 @@ warning() {
 # Print input prompt message
 prompt() {
     echo "${ORANGE}${1}${RESET}"
+}
+
+# One-line confirmation prompt
+prompt_confirm() {
+    local message="$1"
+    prompt "$message"
+    read -n1 -r confirm
+    echo
+    case "$confirm" in
+    [Yy]*) return 0 ;; # User confirmed
+    *) return 1 ;;     # User did not confirm
+    esac
 }
