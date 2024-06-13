@@ -2,6 +2,9 @@
     "recommendations": [
         "dbaeumer.vscode-eslint",
         "github.copilot",
-        "redhat.vscode-yaml"
+        "redhat.vscode-xml",
+        "redhat.vscode-yaml",
+        "christian-kohler.npm-intellisense",
+        "johnpapa.vscode-peacock"
     ]
 }
