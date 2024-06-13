@@ -5,8 +5,6 @@ export interface ModalProps {
 
 export type DonateDialogProps = ModalProps
 
-export type DiscordDialogProps = ModalProps
-
 export interface LargeDialogProps {
     children: JSX.Element | null | undefined | (JSX.Element | null | undefined)[];
     id: string;

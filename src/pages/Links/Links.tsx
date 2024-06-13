@@ -1,12 +1,7 @@
 import { Box, Button, Stack, Tooltip, Typography } from "@mui/material";
 import vrooli from "assets/Vrooli-logo.png";
-import discord from "assets/discord.svg";
-import email from "assets/email.svg";
-import github from "assets/github.svg";
-import goodreads from "assets/goodreads.svg";
-import twitter from "assets/twitter.svg";
-import youtube from "assets/youtube.svg";
-import { DiscordDialog, DonateDialog } from "components";
+import { EmailIcon, GitHubIcon, GoodreadsIcon, SvgComponent, XIcon, YouTubeIcon } from "assets/icons";
+import { DonateDialog } from "components";
 import { useMemo, useState } from "react";
 import { buttonProps, noSelect } from "styles";
 
@@ -16,36 +11,31 @@ export const Links = () => {
     document.title = "Links | Matt Halloran";
 
     const [donateDialogOpen, setDonateDialogOpen] = useState(false);
-    const [discordDialogOpen, setDiscordDialogOpen] = useState(false);
 
     // 2D array of [image, alt/tooltip, link?, onClick?]
-    const iconNavData: [any, string, string | null, (() => any) | null][] = [
-        [twitter, "Follow me on Twitter", "https://twitter.com/mdhalloran", null],
-        [discord, "Add me on Discord", null, () => setDiscordDialogOpen(true)],
-        [github, "Check out my GitHub", "https://github.com/MattHalloran", null],
-        [email, "Shoot me an email", "mailto:matthalloran8@gmail.com", null],
-        [goodreads, "See what books inspired me", "https://goodreads.com/matthalloran", null],
-        [youtube, "Subscribe to the Vrooli YouTube account", "https://youtube.com/@vrooli", null],
+    const iconNavData: [SvgComponent, string, string][] = [
+        [XIcon, "Follow me on Twitter", "https://twitter.com/mdhalloran"],
+        [GitHubIcon, "Check out my GitHub", "https://github.com/MattHalloran"],
+        [EmailIcon, "Shoot me an email", "mailto:matthalloran8@gmail.com"],
+        [GoodreadsIcon, "See what books inspired me", "https://goodreads.com/matthalloran"],
+        [YouTubeIcon, "Subscribe to the Vrooli YouTube account", "https://youtube.com/@vrooli"],
     ];
     const iconProps = {
         width: "24px",
         height: "24px",
     };
     const iconNav = useMemo(() => {
-        return iconNavData.map(([img, alt, link, onClick], index) => {
+        return iconNavData.map(([Icon, alt, link], index) => {
             return (
                 <Tooltip key={`nav-item-${index}`} title={alt}>
                     <Box
-                        component={typeof link === "string" ? "a" : "div"}
-                        href={typeof link === "string" ? link : undefined}
+                        component="a"
+                        href={link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        onClick={() => onClick && onClick()}
-                        sx={{
-                            cursor: "pointer",
-                        }}
+                        sx={{ cursor: "pointer" }}
                     >
-                        <img src={img} alt={alt} {...iconProps} />
+                        <Icon fill="white" />
                     </Box>
                 </Tooltip>
             );
@@ -68,7 +58,6 @@ export const Links = () => {
                 padding: "1em",
             }}>
                 <DonateDialog open={donateDialogOpen} onClose={() => setDonateDialogOpen(false)} />
-                <DiscordDialog open={discordDialogOpen} onClose={() => setDiscordDialogOpen(false)} />
 
                 <Box id='main-info'>
                     <Box

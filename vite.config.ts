@@ -25,6 +25,6 @@ export default defineConfig({
     build: {
         chunkSizeWarningLimit: 500,
         // Enable source maps for debugging. Can be disabled in production, but it only saves a few seconds
-        sourcemap: true,
+        sourcemap: false,
     }
 })
