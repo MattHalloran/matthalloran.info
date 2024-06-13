@@ -20,9 +20,10 @@
         "web-vitals": "^1.0.1"
     },
     "scripts": {
-        "build": "tsc && vite build",
-        "start-development": "vite",
-        "start-production": "serve --config serve.json -l 3003"
+        "build": "vite build",
+        "start-development": "yarn type-check && vite",
+        "start-production": "serve --config serve.json -l 3003",
+        "type-check": "tsc --noEmit"
     },
     "eslintConfig": {
         "extends": [

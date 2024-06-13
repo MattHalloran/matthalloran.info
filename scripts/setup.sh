@@ -253,19 +253,12 @@ if [ "${ENVIRONMENT}" = "development" ]; then
     header "Installing local dependencies"
     cd "${HERE}/.." && yarn cache clean && yarn
 
-    header "Generating type models for Prisma"
-    cd "${HERE}/../packages/server" && prisma generate --schema ./src/db/schema.prisma
-
-    "${HERE}/shared.sh"
-
     # Install AWS CLI, for uploading to S3 bucket. This is used for Kubernetes deployments.
     sudo apt-get install awscli
 else
     # Less needs to be done for production environments
     info "Skipping global dependencies installation - production environment detected"
     info "Skipping local dependencies installation - production environment detected"
-    info "Skipping type models generation - production environment detected"
-    info "Skipping shared.sh - production environment detected"
 fi
 
 cd "$ORIGINAL_DIR"

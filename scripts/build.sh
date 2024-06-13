@@ -6,7 +6,6 @@ HERE=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 
 # Read arguments
 ENV_FILE="${HERE}/../.env-prod"
-TEST="y"
 while getopts "v:d:u:ha:e:t:" opt; do
     case $opt in
     h)
@@ -16,7 +15,6 @@ while getopts "v:d:u:ha:e:t:" opt; do
         echo "  -h --help: Show this help message"
         echo "  -a --api-generate: Generate computed API information (GraphQL query/mutation selectors and OpenAPI schema)"
         echo "  -e --env-file: .env file location (e.g. \"/root/my-folder/.env\")"
-        echo "  -t --test: Runs all tests to ensure code is working before building. Defaults to true. (y/N)"
         exit 0
         ;;
     a)
@@ -83,21 +81,6 @@ fi
 # Navigate to root directory
 cd ${HERE}/..
 
-# Run tests
-if [[ "$TEST" =~ ^[Yy]([Ee][Ss])?$ ]]; then
-    header "Running unit tests for UI..."
-    yarn test
-    header "Type checking UI..."
-    yarn type-check
-    if [ $? -ne 0 ]; then
-        error "Failed to run unit tests for UI"
-        exit 1
-    fi
-else
-    warning "Skipping unit tests for UI..."
-    warning "Skipping type checking for UI..."
-fi
-
 # Build React app
 info "Building React app..."
 yarn build
@@ -132,12 +115,10 @@ fi
 cd ${HERE}/..
 info "Building (and Pulling) Docker images..."
 docker-compose --env-file ${ENV_FILE} -f docker-compose-prod.yml build
-docker pull ankane/pgvector:v0.4.4
-docker pull redis:7-alpine
 
 # Save and compress Docker images
 info "Saving Docker images..."
-docker save -o production-docker-images.tar ui:prod server:prod docs:prod ankane/pgvector:v0.4.4 redis:7-alpine
+docker save -o production-docker-images.tar ui_matt:prod
 if [ $? -ne 0 ]; then
     error "Failed to save Docker images"
     exit 1
@@ -159,7 +140,7 @@ fi
 if [[ "$DEPLOY_VPS" =~ ^[Yy]([Ee][Ss])?$ ]]; then
     # Copy build to VPS
     "${HERE}/keylessSsh.sh" -e ${ENV_FILE}
-    BUILD_DIR="${SITE_IP}:/var/tmp/${VERSION}/"
+    BUILD_DIR="${SITE_IP}:/var/tmp/matthalloran-info/${VERSION}/"
     prompt "Going to copy build and .env-prod to ${BUILD_DIR}. Press any key to continue..."
     read -n1 -r -s
     rsync -ri --info=progress2 -e "ssh -i ~/.ssh/id_rsa_${SITE_IP}" build.tar.gz production-docker-images.tar.gz root@${BUILD_DIR}
@@ -172,7 +153,7 @@ if [[ "$DEPLOY_VPS" =~ ^[Yy]([Ee][Ss])?$ ]]; then
     success "Files copied to ${BUILD_DIR}! To finish deployment, run deploy.sh on the VPS."
 else
     # Copy build locally
-    BUILD_DIR="/var/tmp/${VERSION}"
+    BUILD_DIR="/var/tmp/matthalloran-info/${VERSION}"
     info "Copying build locally to ${BUILD_DIR}."
     # Make sure to create missing directories
     mkdir -p "${BUILD_DIR}"
