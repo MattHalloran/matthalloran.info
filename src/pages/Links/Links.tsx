@@ -55,8 +55,6 @@ const blob2Animation = keyframes`
 `;
 
 const VrooliLink = "https://vrooli.com";
-const DiscordLink = "https://discord.gg/VyrDFzbmmF";
-const WhitePaperLink = "https://docs.google.com/document/d/13Nag4UFxfuz-rVofhNEtqhZ63wOklzPjpbanGv_Po0Y/edit?usp=sharing";
 
 export const Links = () => {
     const particlesInit = useCallback(async (engine: Engine) => {
@@ -271,29 +269,28 @@ export const Links = () => {
                             />
                         </Box>
                         <Typography variant="h3" component="h1" mb={1}>Matt Halloran</Typography>
-                        <Typography variant="body1">💻 Developer  🤔 Philosopher  💭 Dreamer</Typography>
-                        <Typography
-                            variant="body1"
-                            color="#aaf1f9"
-                            component="a"
-                            href="https://matthalloran8.medium.com/the-next-generation-of-global-collaboration-a4839766e29e"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            sx={{
-                                cursor: "pointer",
-                                textDecoration: "none",
-                            }}
-                        >Let&#x27;s change the world together</Typography>
+                        <Typography variant="body1" mb={1}>💻 Developer  🤔 Philosopher  💭 Dreamer</Typography>
+                        <Typography variant="body1">Hello! I'm building an open-source autonomous agent swarm.</Typography>
+                        <Typography variant="body1" mb={1}>Check out Vrooli for more info!</Typography>
                     </Box>
 
                     <Stack direction="column" spacing={1} mb={2} mt={2} sx={{ ...noSelect, alignItems: "center" }}>
-                        <Button component="a" href={VrooliLink} target="_blank" rel="noopener noreferrer" sx={{ ...buttonProps, marginBottom: 0 }}>Vrooli - Website</Button>
-                        <Button component="a" href={DiscordLink} target="_blank" rel="noopener noreferrer" sx={{ ...buttonProps }}>Vrooli - Discord</Button>
-                        <Button component="a" href={WhitePaperLink} target="_blank" rel="noopener noreferrer" sx={{ ...buttonProps }}>Vrooli - White Paper</Button>
+                        <Button component="a" href={VrooliLink} target="_blank" rel="noopener noreferrer" sx={{ ...buttonProps, marginBottom: 0 }}>Vrooli</Button>
                         <Button onClick={() => setDonateDialogOpen(true)} sx={{ ...buttonProps }}>Donate</Button>
                     </Stack>
-
-                    <Stack direction="row" spacing={1} sx={{ ...noSelect, justifyContent: "space-evenly" }}>
+                    <Typography
+                        variant="body1"
+                        color="#aaf1f9"
+                        component="a"
+                        href="https://matthalloran8.medium.com/the-next-generation-of-global-collaboration-a4839766e29e"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        sx={{
+                            cursor: "pointer",
+                            textDecoration: "none",
+                        }}
+                    >Let&#x27;s change the world together🕊️</Typography>
+                    <Stack direction="row" spacing={1} mt={2} sx={{ ...noSelect, justifyContent: "space-evenly" }}>
                         {iconNav}
                     </Stack>
                 </Box>
