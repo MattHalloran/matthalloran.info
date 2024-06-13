@@ -1,14 +1,53 @@
 #!/bin/bash
-# This script sets up keyless SSH access to a remote server
+# This script sets up keyless SSH access to a remote server.
+# By default, tries to use SITE_IP from .env file, but can also be passed
+# as a command line argument. Example usage:
+#  ./scripts/keylessSsh.sh 123.456.789.012
 
 HERE=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
-source "${HERE}/prettify.sh"
+. "${HERE}/prettify.sh"
+
+# Connection timeout in seconds
+CONN_TIMEOUT=10
+
+# Read arguments
+ENV_FILE="${HERE}/../.env-prod"
+while getopts "he:" opt; do
+    case $opt in
+    h)
+        echo "Usage: $0 [-h] [-e ENV_FILE]"
+        echo "  -h --help: Show this help message"
+        echo "  -e --env-file: .env file location (e.g. \"/root/my-folder/.env\")"
+        exit 0
+        ;;
+    e)
+        ENV_FILE=$OPTARG
+        ;;
+    \?)
+        echo "Invalid option: -$OPTARG" >&2
+        exit 1
+        ;;
+    :)
+        echo "Option -$OPTARG requires an argument." >&2
+        exit 1
+        ;;
+    esac
+done
 
 # Load variables from .env file
-if [ -f "${HERE}/../.env" ]; then
-    source "${HERE}/../.env"
+if [ -f "${ENV_FILE}" ]; then
+    info "Loading variables from ${ENV_FILE}..."
+    . "${ENV_FILE}"
 else
-    error "Could not find .env file. Exiting..."
+    error "Could not find .env file at ${ENV_FILE}. Exiting..."
+    exit 1
+fi
+
+# Command line flag for SITE_IP
+if [ $# -eq 1 ]; then
+    SITE_IP=$1
+elif [ -z "${SITE_IP}" ]; then
+    error "Could not find SITE_IP in .env or as command line arg. Exiting..."
     exit 1
 fi
 
@@ -42,12 +81,19 @@ fi
 
 # Test the SSH connection by running a command on the remote host
 info "Testing SSH connection..."
-ssh -i ~/.ssh/${key_name} -o "BatchMode=yes" ${remote_server} "echo 2>&1" >/dev/null
+ssh -i ~/.ssh/${key_name} -o "BatchMode=yes" -o "ConnectTimeout=${CONN_TIMEOUT}" ${remote_server} "echo 2>&1" >/dev/null
 RET=$?
 if [ ${RET} -ne 0 ]; then
-    error "SSH connection failed: ${RET}. Exiting..."
-    rm ~/.ssh/${key_name}*
-    exit 1
-else
-    success "SSH connection successful."
+    error "SSH connection failed: ${RET}. Retrying after removing old host key..."
+    # Remove the known hosts entry for the remote server
+    ssh-keygen -R ${SITE_IP}
+    # Retry the SSH connection
+    ssh -i ~/.ssh/${key_name} -o "BatchMode=yes" -o "ConnectTimeout=${CONN_TIMEOUT}" ${remote_server} "echo 2>&1" >/dev/null
+    RET=$?
+    if [ ${RET} -ne 0 ]; then
+        error "SSH connection still failed: ${RET}. Exiting..."
+        rm ~/.ssh/${key_name}*
+        exit 1
+    fi
 fi
+success "SSH connection successful."

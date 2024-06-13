@@ -7,6 +7,7 @@ services:
       args:
         PROJECT_DIR: "${PROJECT_DIR}"
     container_name: ui_matt
+    image: ui_matt:prod
     environment:
       NODE_ENV: "production"
       PROJECT_DIR: "${PROJECT_DIR}"
