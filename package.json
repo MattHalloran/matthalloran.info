@@ -2,7 +2,7 @@
     "name": "matthalloran.info",
     "author": "Matt Halloran",
     "license": "GPL-3.0",
-    "version": "2.1.0",
+    "version": "2.1.1",
     "main": "index.ts",
     "type": "module",
     "private": true,
