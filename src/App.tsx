@@ -1,12 +1,10 @@
-import { Routes } from "./Routes";
-import "./style.css";
+import { Neon } from "components/Neon/Neon";
+import { Links } from "pages";
 
 export function App() {
     return (
-        <div id="App">
-            <main id="page-container">
-                <Routes />
-            </main>
-        </div>
+        <Neon>
+            <Links />
+        </Neon>
     );
 }

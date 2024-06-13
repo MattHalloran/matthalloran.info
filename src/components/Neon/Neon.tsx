@@ -582,6 +582,7 @@ export const Neon = ({
             height: "100%",
             background: blackRadial,
             backgroundAttachment: "fixed",
+            color: "white",
         }}>
             <canvas ref={canvasRef} />
             <RandomBlobs numberOfBlobs={isMobile ? 5 : 8} />
